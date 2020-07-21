@@ -36,12 +36,12 @@ module _bluepill_pcb() {
 // ****************************************************************************
 // USB
 // ****************************************************************************
+bluepill_usb = [
+  6,
+  8,
+  2.5
+];
 module _bluepill_usb() {
-  bluepill_usb = [
-    6,
-    8,
-    2.5
-  ];
   bluepill_usb_offset = [
     0,
     (bluepill_pcb.y - bluepill_usb.y) / 2,
@@ -55,17 +55,17 @@ module _bluepill_usb() {
 // ****************************************************************************
 // JUMPERS
 // ****************************************************************************
+bluepill_jumpers = [
+  8,
+  5,
+  8
+];
+bluepill_jumpers_offset = [
+  8,
+  12,
+  0
+];
 module _bluepill_jumpers() {
-  bluepill_jumpers = [
-    8,
-    5,
-    8
-  ];
-  bluepill_jumpers_offset = [
-    8,
-    12,
-    0
-  ];
   color("gold")
     translate(bluepill_jumpers_offset)
       cube(bluepill_jumpers);
@@ -74,17 +74,17 @@ module _bluepill_jumpers() {
 // ****************************************************************************
 // RESET BUTTON
 // ****************************************************************************
+bluepill_reset = [
+  6,
+  3,
+  5
+];
+bluepill_reset_offset = [
+  9,
+  6,
+  0
+];
 module _bluepill_reset() {
-  bluepill_reset = [
-    6,
-    3,
-    5
-  ];
-  bluepill_reset_offset = [
-    9,
-    6,
-    0
-  ];
   color("white")
     translate(bluepill_reset_offset)
       cube(bluepill_reset);
@@ -113,17 +113,17 @@ module _bluepill_mcu() {
 // ****************************************************************************
 // OSCILLATOR
 // ****************************************************************************
+bluepill_oscillator = [
+  4,
+  11,
+  4
+];
+bluepill_oscillator_offset = [
+  33,
+  (bluepill_pcb.y - bluepill_oscillator.y) / 2,
+  0
+];
 module _bluepill_oscillator() {
-  bluepill_oscillator = [
-    4,
-    11,
-    4
-  ];
-  bluepill_oscillator_offset = [
-    33,
-    (bluepill_pcb.y - bluepill_oscillator.y) / 2,
-    0
-  ];
   color("silver")
     translate(bluepill_oscillator_offset)
       cube(bluepill_oscillator);
@@ -179,12 +179,12 @@ module _bluepill_leds() {
 // ****************************************************************************
 // SWD PINS
 // ****************************************************************************
+bluepill_swd_pins = [
+  4,
+  10,
+  2.75
+];
 module _bluepill_swd_pins() {
-  bluepill_swd_pins = [
-    4,
-    10,
-    2.75
-  ];
   bluepill_swd_pins_offset = [
     bluepill_pcb.x - bluepill_swd_pins.x,
     (bluepill_pcb.y - bluepill_swd_pins.y) / 2,
@@ -198,6 +198,21 @@ module _bluepill_swd_pins() {
 // ****************************************************************************
 // GPIO PINS
 // ****************************************************************************
+bluepill_gpio_pins_base = [
+  51.5,
+  2.75,
+  2.5
+];
+bluepill_bottom_gpio_pins_base_offset = [
+  0.75,
+  2.5,
+  0
+];
+bluepill_top_gpio_pins_base_offset = [
+  0.75,
+  18,
+  0
+];
 module _bluepill_gpio_pins() {
   bluepill_gpio_pin = [
     0.6,
@@ -205,21 +220,6 @@ module _bluepill_gpio_pins() {
     8
   ];
   bluepill_gpio_pin_count = 20;
-  bluepill_gpio_pins_base = [
-    51.5,
-    2.75,
-    2.5
-  ];
-  bluepill_bottom_gpio_pins_base_offset = [
-    0.75,
-    2.5,
-    0
-  ];
-  bluepill_top_gpio_pins_base_offset = [
-    0.75,
-    18,
-    0
-  ];
   color("yellow") {
     translate(bluepill_bottom_gpio_pins_base_offset)
       cube(bluepill_gpio_pins_base);
