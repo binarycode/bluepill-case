@@ -1,7 +1,7 @@
 include <_const.scad>;
 include <_bluepill.scad>;
 
-body_wall = 2;
+body_wall = 1.5;
 
 module body() {
   difference() {
@@ -11,9 +11,7 @@ module body() {
     _body_gpio_pins_cutoff();
     _body_jumpers_cutoff();
     _body_reset_cutoff();
-    _body_led_cutoff();
     _body_inner_cutoff();
-    _body_oscillator_cutoff();
     _body_usb_cutoff();
     _body_swd_cutoff();
   }
@@ -51,27 +49,27 @@ module _body_pcb_cutoff() {
 // ****************************************************************************
 // GPIO PINS CUTOFF (WITH LABELS)
 // ****************************************************************************
+body_gpio_pins_cutoff_label = 1.0;
 module _body_gpio_pins_cutoff() {
-  d = 0.2;
-  l = 1.8;
+  body_gpio_pins_cutoff_d = 0.2;
   translate([
-    body_wall + bluepill_bottom_gpio_pins_base_offset.x - d,
-    body_wall + bluepill_bottom_gpio_pins_base_offset.y - l - d,
+    body_wall - body_pcb_cutoff_d,
+    body_wall + bluepill_bottom_gpio_pins_base_offset.y - body_gpio_pins_cutoff_label,
     -E
   ])
     cube([
-      d + bluepill_gpio_pins_base.x + d,
-      d + bluepill_gpio_pins_base.y + l + d,
+      body_pcb_cutoff_d + bluepill_pcb.x + body_pcb_cutoff_d,
+      body_gpio_pins_cutoff_d + bluepill_gpio_pins_base.y + body_gpio_pins_cutoff_label,
       body_outer.z + E2
     ]);
   translate([
-    body_wall + bluepill_top_gpio_pins_base_offset.x - d,
-    body_wall + bluepill_top_gpio_pins_base_offset.y - d,
+    body_wall - body_pcb_cutoff_d,
+    body_wall + bluepill_top_gpio_pins_base_offset.y - body_gpio_pins_cutoff_d,
     -E
   ])
     cube([
-      d + bluepill_gpio_pins_base.x + d,
-      d + bluepill_gpio_pins_base.y + l + d,
+      body_pcb_cutoff_d + bluepill_pcb.x + body_pcb_cutoff_d,
+      body_gpio_pins_cutoff_d + bluepill_gpio_pins_base.y + body_gpio_pins_cutoff_label,
       body_outer.z + E2
     ]);
 }
@@ -111,64 +109,18 @@ module _body_reset_cutoff() {
 }
 
 // ****************************************************************************
-// LES CUTOFF
-// ****************************************************************************
-module _body_led_cutoff() {
-  r = 1;
-  x = 44.5;
-  translate([
-    x,
-    body_wall + bluepill_bottom_gpio_pins_base_offset.y + bluepill_gpio_pins_base.y,
-    body_outer.z / 2
-  ])
-    cylinder(
-      h = body_outer.z + E2,
-      r = r,
-      center = true
-    );
-  translate([
-    x,
-    body_wall + bluepill_top_gpio_pins_base_offset.y,
-    body_outer.z / 2
-  ])
-    cylinder(
-      h = body_outer.z + E2,
-      r = r,
-      center = true
-    );
-}
-
-// ****************************************************************************
 // INNER SPACE CUTOFF
 // ****************************************************************************
 module _body_inner_cutoff() {
-  y = 11.5;
   translate([
     body_wall - body_pcb_cutoff_d,
-    body_wall + (bluepill_pcb.y - y) / 2,
-    bluepill_pcb.z - E
+    body_wall + bluepill_bottom_gpio_pins_base_offset.y - body_gpio_pins_cutoff_label,
+    0
   ])
     cube([
       body_pcb_cutoff_d + bluepill_pcb.x + body_pcb_cutoff_d,
-      y,
-      bluepill_oscillator.z + E
-    ]);
-}
-
-// ****************************************************************************
-// OSCILLATOR CUTOFF
-// ****************************************************************************
-module _body_oscillator_cutoff() {
-  d = 1;
-  translate([
-    body_wall + bluepill_oscillator_offset.x - d,
-    body_wall + (bluepill_pcb.y - d - bluepill_oscillator.y - d) / 2,
-    bluepill_pcb.z - E
-  ])
-    cube([
-      d + bluepill_oscillator.x + d,
-      d + bluepill_oscillator.y + d,
-      bluepill_oscillator.z + E
+      bluepill_top_gpio_pins_base_offset.y + bluepill_gpio_pins_base.y + body_gpio_pins_cutoff_label - (bluepill_bottom_gpio_pins_base_offset.y - body_gpio_pins_cutoff_label),
+      bluepill_pcb.z + bluepill_oscillator.z
     ]);
 }
 

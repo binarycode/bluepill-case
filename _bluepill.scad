@@ -118,12 +118,12 @@ bluepill_oscillator = [
   11,
   4
 ];
-bluepill_oscillator_offset = [
-  33,
-  (bluepill_pcb.y - bluepill_oscillator.y) / 2,
-  0
-];
 module _bluepill_oscillator() {
+  bluepill_oscillator_offset = [
+    33,
+    (bluepill_pcb.y - bluepill_oscillator.y) / 2,
+    0
+  ];
   color("silver")
     translate(bluepill_oscillator_offset)
       cube(bluepill_oscillator);
