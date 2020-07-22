@@ -1,7 +1,7 @@
 include <_const.scad>;
 include <_bluepill.scad>;
 
-body_wall = 1.5;
+body_wall = 1.75;
 
 module body() {
   difference() {
@@ -32,7 +32,7 @@ module _body_outer() {
 // ****************************************************************************
 // PCB CUTOFF
 // ****************************************************************************
-body_pcb_cutoff_d = 0.1;
+body_pcb_cutoff_d = 0.3;
 module _body_pcb_cutoff() {
   translate([
     body_wall - body_pcb_cutoff_d,
@@ -78,7 +78,7 @@ module _body_gpio_pins_cutoff() {
 // JUMPERS CUTOFF
 // ****************************************************************************
 module _body_jumpers_cutoff() {
-  d = 0.2;
+  d = 0.3;
   translate([
     body_wall + bluepill_jumpers_offset.x - d,
     body_wall + bluepill_jumpers_offset.y - d,
@@ -95,7 +95,7 @@ module _body_jumpers_cutoff() {
 // RESET BUTTON CUTOFF
 // ****************************************************************************
 module _body_reset_cutoff() {
-  r = 1;
+  r = 1.5;
   translate([
     body_wall + bluepill_reset_offset.x + bluepill_reset.x / 2,
     body_wall + bluepill_reset_offset.y + bluepill_reset.y / 2,

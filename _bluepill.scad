@@ -62,7 +62,7 @@ bluepill_jumpers = [
 ];
 bluepill_jumpers_offset = [
   8,
-  12,
+  11,
   0
 ];
 module _bluepill_jumpers() {
@@ -81,7 +81,7 @@ bluepill_reset = [
 ];
 bluepill_reset_offset = [
   9,
-  6,
+  6.5,
   0
 ];
 module _bluepill_reset() {
