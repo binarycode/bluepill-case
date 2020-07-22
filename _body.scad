@@ -109,34 +109,34 @@ module _body_inner_cutoff() {
 // ****************************************************************************
 // USB CUTOFF
 // ****************************************************************************
+body_usb_cutoff_d = 0.3;
 module _body_usb_cutoff() {
-  d = 0.3;
   translate([
     -E,
-    body_wall + (bluepill_pcb.y - d - bluepill_usb.y - d) / 2,
+    body_wall + (bluepill_pcb.y - body_usb_cutoff_d - bluepill_usb.y - body_usb_cutoff_d) / 2,
     -E
   ])
     cube([
       bluepill_usb.x + E,
-      d + bluepill_usb.y + d,
-      bluepill_pcb.z + bluepill_usb.z + d + E
+      body_usb_cutoff_d + bluepill_usb.y + body_usb_cutoff_d,
+      bluepill_pcb.z + bluepill_usb.z + body_usb_cutoff_d + E
     ]);
 }
 
 // ****************************************************************************
 // SWD CUTOFF
 // ****************************************************************************
+body_swd_cutoff_d_y = 0.5;
 module _body_swd_cutoff() {
-  d_y = 0.5;
   d_z = 0.1;
   translate([
     body_wall + bluepill_pcb.x + body_wall - bluepill_swd_pins.x + E,
-    body_wall + (bluepill_pcb.y - d_y - bluepill_swd_pins.y - d_y) / 2,
+    body_wall + (bluepill_pcb.y - body_swd_cutoff_d_y - bluepill_swd_pins.y - body_swd_cutoff_d_y) / 2,
     -E
   ])
     cube([
       bluepill_swd_pins.x + E,
-      d_y + bluepill_swd_pins.y + d_y,
+      body_swd_cutoff_d_y + bluepill_swd_pins.y + body_swd_cutoff_d_y,
       bluepill_pcb.z + bluepill_swd_pins.z + d_z + E
     ]);
 }
