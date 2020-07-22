@@ -10,7 +10,6 @@ module body() {
     _body_pcb_cutoff();
     _body_gpio_pins_cutoff();
     _body_jumpers_cutoff();
-    _body_reset_cutoff();
     _body_inner_cutoff();
     _body_usb_cutoff();
     _body_swd_cutoff();
@@ -23,7 +22,7 @@ module body() {
 body_outer = [
   body_wall + bluepill_pcb.x + body_wall,
   body_wall + bluepill_pcb.y + body_wall,
-  bluepill_pcb.z + bluepill_oscillator.z + body_wall
+  bluepill_pcb.z + bluepill_reset.z + body_wall
 ];
 module _body_outer() {
   cube(body_outer);
@@ -36,12 +35,12 @@ body_pcb_cutoff_d = 0.3;
 module _body_pcb_cutoff() {
   translate([
     body_wall - body_pcb_cutoff_d,
-    body_wall - body_pcb_cutoff_d,
+    body_wall,
     -E
   ])
     cube([
       body_pcb_cutoff_d + bluepill_pcb.x + body_pcb_cutoff_d,
-      body_pcb_cutoff_d + bluepill_pcb.y + body_pcb_cutoff_d,
+      bluepill_pcb.y,
       bluepill_pcb.z + E
     ]);
 }
@@ -78,7 +77,7 @@ module _body_gpio_pins_cutoff() {
 // JUMPERS CUTOFF
 // ****************************************************************************
 module _body_jumpers_cutoff() {
-  d = 0.3;
+  d = 0.4;
   translate([
     body_wall + bluepill_jumpers_offset.x - d,
     body_wall + bluepill_jumpers_offset.y - d,
@@ -89,23 +88,6 @@ module _body_jumpers_cutoff() {
       d + bluepill_jumpers.y + d,
       body_outer.z + E2
     ]);
-}
-
-// ****************************************************************************
-// RESET BUTTON CUTOFF
-// ****************************************************************************
-module _body_reset_cutoff() {
-  r = 1.5;
-  translate([
-    body_wall + bluepill_reset_offset.x + bluepill_reset.x / 2,
-    body_wall + bluepill_reset_offset.y + bluepill_reset.y / 2,
-    body_outer.z / 2
-  ])
-   cylinder(
-     h = body_outer.z + E2,
-     r = r,
-     center = true
-   );
 }
 
 // ****************************************************************************
@@ -120,7 +102,7 @@ module _body_inner_cutoff() {
     cube([
       body_pcb_cutoff_d + bluepill_pcb.x + body_pcb_cutoff_d,
       bluepill_top_gpio_pins_base_offset.y + bluepill_gpio_pins_base.y + body_gpio_pins_cutoff_label - (bluepill_bottom_gpio_pins_base_offset.y - body_gpio_pins_cutoff_label),
-      bluepill_pcb.z + bluepill_oscillator.z
+      bluepill_pcb.z + bluepill_reset.z
     ]);
 }
 
@@ -128,7 +110,7 @@ module _body_inner_cutoff() {
 // USB CUTOFF
 // ****************************************************************************
 module _body_usb_cutoff() {
-  d = 0.5;
+  d = 0.3;
   translate([
     -E,
     body_wall + (bluepill_pcb.y - d - bluepill_usb.y - d) / 2,
@@ -145,15 +127,16 @@ module _body_usb_cutoff() {
 // SWD CUTOFF
 // ****************************************************************************
 module _body_swd_cutoff() {
-  d = 0.5;
+  d_y = 0.5;
+  d_z = 0.1;
   translate([
     body_wall + bluepill_pcb.x + body_wall - bluepill_swd_pins.x + E,
-    body_wall + (bluepill_pcb.y - d - bluepill_swd_pins.y - d) / 2,
+    body_wall + (bluepill_pcb.y - d_y - bluepill_swd_pins.y - d_y) / 2,
     -E
   ])
     cube([
       bluepill_swd_pins.x + E,
-      d + bluepill_swd_pins.y + d,
-      bluepill_pcb.z + bluepill_swd_pins.z + d + E
+      d_y + bluepill_swd_pins.y + d_y,
+      bluepill_pcb.z + bluepill_swd_pins.z + d_z + E
     ]);
 }
