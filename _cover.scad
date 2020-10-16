@@ -15,7 +15,7 @@ module cover() {
 cover_base = [
   body_wall + bluepill_pcb.x + body_wall,
   body_wall + bluepill_pcb.y + body_wall,
-  1
+  2
 ];
 module _cover_base() {
   cube(cover_base);
@@ -27,8 +27,8 @@ module _cover_base() {
 module _cover_ridge() {
   cover_ridge = [
     bluepill_pcb.x,
-    1,
-    1.5
+    2,
+    1.8
   ];
   cover_ridge_d = 0.25;
   translate([
